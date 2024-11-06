@@ -3,6 +3,7 @@
 ## Resource
 
 To run the website, install the requirements and run: 
+
 python3 server.py
 
 **Recipe**
