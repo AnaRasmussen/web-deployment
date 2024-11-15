@@ -1,0 +1,37 @@
+# Ingress for the backend service
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ana-ingress-backend
+spec:
+  rules:
+    - host: ana.zorran.tech
+      http:
+        paths:
+          - path: /recipes 
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: ana-backend-s
+                port:
+                  number: 8080
+
+---
+
+# Ingress for the frontend service
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ana-ingress-frontend
+spec:
+  rules:
+    - host: ana.zorran.tech
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ana-frontend-s
+                port:
+                  number: 80

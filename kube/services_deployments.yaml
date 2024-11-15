@@ -1,0 +1,73 @@
+# Frontend Deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ana-frontend-d
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ana-frontend
+  template:
+    metadata:
+      labels:
+        app: ana-frontend
+    spec:
+      containers:
+        - name: ana-frontend
+          image: morganandrus/ana-frontend:latest
+          ports:
+            - containerPort: 80 
+---
+# Frontend Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: ana-frontend-s
+spec:
+  selector:
+    app: ana-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30005
+  type: NodePort
+
+# Backend Deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ana-backend-d
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ana-backend
+  template:
+    metadata:
+      labels:
+        app: ana-backend
+    spec:
+      containers:
+        - name: ana-backend
+          image: morganandrus/ana-backend:latest
+          ports:
+            - containerPort: 8080 
+---
+# Backend Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: ana-backend-s
+spec:
+  selector:
+    app: ana-backend
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP 
+
