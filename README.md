@@ -46,18 +46,20 @@ Delete recipe member       | DELETE | /recipes/*\<id\>*
 http://ana.zorran.tech
 ```
 ### Docker
-To build the Docker containers, run the following commands within the web-deployment folder.
+To build and push the Docker containers, run the following commands within the web-deployment folder.
 
 Backend
 ```bash
 cd server
 docker build -t <your-dockerhub-username>/recipe-server:latest .
+docker push <your-dockerhub-username>/recipe-server:latest .
 ```
 
 Frontend
 ```bash
 cd client
-docker build -t <your-dockerhub-username>/recipe-client:latest .
+docker build -t <your-dockerhub-username>/recipe-client:latest
+docker push <your-dockerhub-username>/recipe-client:latest
 ```
 
 For example, I used the following docker images:
@@ -65,11 +67,13 @@ For example, I used the following docker images:
 Backend
 ```bash
 docker build -t morganandrus/ana-backend:latest .
+docker push morganandrus/ana-backend:latest
 ```
 
 Frontend
 ```bash
 docker build -t morganandrus/ana-frontend:latest .
+docker push morganandrus/ana-frontend:latest
 ```
 
 ### Kubernetes
